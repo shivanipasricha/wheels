@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <h1 class="h3 mb-3 font-weight-normal">{% block title %}New Ride{% endblock %}</h1>
+    </div>
+  </div>
+  <form class="needs-validation" method="post">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="start_location">Start Location</label>
+        <select name="start_location" id="start_location" class="combobox form-control" required>
+          {% for location in locations %}
+          <option value="{{ location }}">{{ location }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="end_location">End Location</label>
+        <select name="end_location" id="end_location" class="combobox form-control" required>
+          {% for location in locations %}
+          <option value="{{ location }}">{{ location }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="date">Date</label>
+        <input name="date" id="date" type="date" class="form-control" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="time">Time</label>
+        <input name="time" id="time" type="time" class="form-control" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3 mt-2">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Request</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

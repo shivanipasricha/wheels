@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">{% block title %}Rides{% endblock %}</h1>
+</div>
+{% if g.accounts['role'] != 'staff' %}
+<div class="container text-center mb-4">
+  <a class="action display-6" href="{{ url_for('blog.create') }}">New</a>
+</div>
+{% endif %}
+<div class="container">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        {% if g.accounts['role'] == 'staff' %}
+        <th scope="col">Rider</th>
+        {% endif %}
+        <th scope="col">Start Address</th>
+        <th scope="col">End Address</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Driver</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    {% for ride in rides %}
+    <tr>
+      {% if g.accounts['role'] == 'staff' %}
+      <td>{{ ride['username'] }}</td>
+      {% endif %}
+      <td>{{ ride['start_address'] }}</td>
+      <td>{{ ride['end_address'] }}</td>
+      <td>{{ ride['time'].strftime('%m/%d/%Y') }}</td>
+      <td>{{ ride['time'].strftime('%I:%M %p') }}</td>
+      <td>{{ ride['driver'] if (ride['driver'] is not none) else 'N/A' }}</td>
+      <td><a class="action" href="{{ url_for('blog.update', id=ride['id']) }}">Edit</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
